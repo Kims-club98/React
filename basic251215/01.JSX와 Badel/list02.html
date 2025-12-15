@@ -1,0 +1,47 @@
+<!-- 
+date: 2025.12.15 12:10
+title: to do list 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>to do list</title>
+  <!-- React and ReactDOM 을 적용하기 위한 Script 문 3개↓-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"> // end of React</script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    const todos = [
+        {id:1, value: '방청소'},
+        {id:2, value: '빨래하기'},
+        {id:3, value: '조깅하기'}
+    ];
+// -> 사용자 함수 정의 -> 컴포넌트 사용 -> 주의할 점은 함수명을 반드시 대문자로 시작할 것
+// 주의!)) 트래블 슈팅
+    // () => (): retun 생략가능!
+    // () => { return } : return 값 필수(return을 생략할 수 없음)
+    const App = () => {
+      return ( // 리엑트 구간(React Fragment 사용)
+        <React.Fragment> 
+          <h2>To Do List</h2>
+          {todos.map((todo,index) => ( // todos의 객체를 꺼내서 출력
+            <div key={todo.id}>  //
+              <button>{todo.value}</button> 
+            </div>
+          ))
+          // ↑ todo.value값을 button 태그로 감싸서 출력
+          // key값을 따로 주어 변경이 발생해도 빠르게 랜더링 하도록 하게 할 수도 있다!!
+        }
+        </React.Fragment>
+      );
+      };
+    ReactDOM.createRoot(root).render(<App/>); // root 값을 App에 렌더링
+  </script>
+</body>
+</html>
