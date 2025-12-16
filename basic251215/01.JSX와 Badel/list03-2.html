@@ -40,7 +40,9 @@ title: 배열의
           const doneClick = (todo) => {
             console.log('doneClick');
             console.log(todo);
-            setItems(items.filter(item => item !== todo));
+            //setItems(items.filter(item => item !== todo));
+            // filter는 조건이 True 인 것만 남겨서 새로운 배열을 만듦(깊은 복사) => item !== todo 이면 남기고 false면 제거함(비교는 객체 참조 비교)(클릭 시 제거)
+            // 배열 안에 있는 객체 todo와 클릭한 객체 todo가 같은 메모리 주소이면 제거
             setItems((items) => items.filter(item => item !==todo))
             // tip: => 는 화살표 함수로 return이 생략된 형태이다.(retrun으로 이해하기)
           }; // 클릭 이벤트 함수(Event Handler,doneClick)
@@ -48,14 +50,18 @@ title: 배열의
         <>
             <h2>To Do List</h2>
             {items.map((item,index) => ( // items의 객체를 꺼내서 출력
-              <div key={item.id}>  
-                <button onClick={() => doneClick(item)}>{item.value}</button> 
+              <div key={item.id}> 
+{/*JSX 주석*/}
+{/*주의: 버튼 클릭 시 함수를 실행해야 하므로 익명 함수로 감싸서 전달할 것*/}
+{/*if onClick={doneClick(item)}로 하면 렌더링 되는 순간 바로 실행됨*/} 
+{/*즉 클릭이 아니라 즉시 실행되어 목록에 아이템이 보이지 않음.*/}             
+                <button onClick={() => doneClick(item)}>{item.id}{item.value}</button> 
               </div>
             ))}                    
         </>
-      );
+      );// end of return
       // ▲ parameter가 변경 시 (todo -> item) 모든 parameter 명을 변경해줘야 한다.(변수명 중요)
-      };
+      };// end of App
       // <> / </> 는 React Fragment의 축약형
     ReactDOM.createRoot(root).render(<App/>); // root 값을 App에 렌더링
   </script>
