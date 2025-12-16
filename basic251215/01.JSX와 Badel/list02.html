@@ -16,7 +16,7 @@ title: to do list
 <body>
   <div id="root"></div>
   <script type="text/babel">
-    const root = document.querySelector("#root");
+    const root = document.querySelector("#root")
     const todos = [
         {id:1, value: '방청소'},
         {id:2, value: '빨래하기'},
@@ -31,7 +31,7 @@ title: to do list
         <React.Fragment> 
           <h2>To Do List</h2>
           {todos.map((todo,index) => ( // todos의 객체를 꺼내서 출력
-            <div key={todo.id}>  //
+            <div key={todo.id}>  
               <button>{todo.value}</button> 
             </div>
           ))
