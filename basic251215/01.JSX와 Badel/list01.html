@@ -27,15 +27,20 @@ title: list 만들기
     const root = document.querySelector("#root"); // html id root 를 가져와 root 변수에 담음
     const msg = "Hello, React!!!"; // msg 변수에 문자열 할당
     const element = ( // JSX된 React 엘리먼트 변수를 element에 담기 시작함.
-      <>
+      // (JS 영역) <React.Fragment> : 문법적으로 생략은 불가하나, 축약형 <> </> 사용 가능
+        <React.Fragment> 
+        {/*JSX 문법 주석이다.*/}
+        {/*element 내부에 여러 엘리먼트를 사용 시 반드시 전체를 감싸는 태그가 필요!*/}
+        {/*div 태그로 묶어도 합법 -> 그러나 불필요한 태그가 추가되는 것은 추천되지 않음*/}
         <h2>목록 보기</h2>
         {
           ['🍇','🍌','🍓','🍎','🥭'].map((currentValue, x, array) => (
             <h1 key={x}>{currentValue}</h1>
           ))
         }
-      </>
+      </React.Fragment>
     ) // JSX문법: html과 JS 혼합 문법
+
     ReactDOM.createRoot(root).render(element); // root 요소에 element 렌더링(중요!)
     </script>
 </body>

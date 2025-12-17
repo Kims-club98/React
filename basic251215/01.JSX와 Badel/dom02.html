@@ -17,14 +17,16 @@ description: JSX 문법에서 함수와 객체 적용하기
 <body>
   <div id="root"></div>
   <script type="text/babel">
+    //함수 선언도 가능하고 호출도 가능하다.
     const formatName = (user) => {
       return user.firstName +" "+user.lastName
     }
+    // 객체 리터럴 사용 가능함
     const user = {
       firstName: 'scott',
       lastName: 'tiger'
     }
-    const element = <h2>Hello, {formatName(user)}</h2> // 적용 시 {} 사용
+    const element = <h2>Hello, {formatName(user)}</h2> // JSX 문법, {} 안에서는 JS문법을 섞어 쓰기가 가능하다.
     const root = ReactDOM.createRoot(document.querySelector("#root"))
     root.render(element);
   </script>

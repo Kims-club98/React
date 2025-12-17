@@ -1,7 +1,6 @@
 <!-- 
- date: 2023.12.15 11:33
- title: JSX와 Badel
- description: JSX 문법에서 class 속성 적용하기 
+ date: 251217 10:51
+
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +8,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hello React</title>
-  <!-- 
-    CDN - 로컬(pc)캐시사용 -> 속도가 느림
 
-  -->
-    <!-- ▼ react.devopment 리액트 훅-->
+  <!-- ▼ react.devopment 리액트 훅-->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <!-- ▼ 돔 관련 라이브러리 -->
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -23,7 +19,6 @@
 <body>
   <div id="root"></div>
   <style>
-    /* 클래스 이름 적용 시 . 을 사용(name으로 적용 시 는 #을 사용) */
     .title{
       color:red;
       font-size: 40px;
@@ -32,9 +27,12 @@
   <script type="text/babel">
     const root = document.querySelector("#root"); 
     const msg = "Hello, React!"; 
-    const 클래스이름 = "title"; // 선언 수행 후 적용하기!
-    const element = <h2 className={클래스이름}>{msg}</h2>; //JSX 문법 -> html과 JS 섞어쓰기
-    ReactDOM.createRoot(root).render(element); 
+    const 클래스이름 = "title"; 
+    const props = {className: 클래스이름, children: msg};
+    //스프레드연산자
+    //하위태그(자손)태그가 존재하지 않으면, 닫힌 태그를 한번에 사용함.
+    const 사용자정의태그 = <h2 {...props}>{msg}</h2>; // props 객체의 속성들을 해체하여 h2 태그에 적용
+    ReactDOM.createRoot(root).render(사용자정의태그); 
     </script>
 </body>
 </html>
