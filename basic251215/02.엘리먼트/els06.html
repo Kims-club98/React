@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ▼ 리엑트 사용을 위한 Script -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>6. els06</title>
+</head>
+<body>
+  <div id="root"></div>
+    <script type="text/babel">
+      const root = document.querySelector("#root");
+      const Paint = ({title,description, children}) => (
+        <>
+          <h1>{title}</h1>
+          <p>{description}</p>
+          {children}
+        </>
+    )
+      const Nice = () => <h2>React is Good!!!</h2>; // 매개변수 없이 Nice가 호출되면 h2태그(React is Good!!!) 반환
+      const element = (
+        <>
+          <Paint title="JAVA(자바)" description="객체지향">
+            <Nice />
+            <Nice />
+            <Nice />      
+          </Paint>
+          <Paint title="ORACLE(오라클)" description="관계지향형">
+          </Paint>
+          <Paint title="REACT(리엑트)" description="라이브러리">
+          </Paint>
+        </>
+      )
+      ReactDOM.createRoot(root).render(element);
+    </script>  
+</body>
+</html>
