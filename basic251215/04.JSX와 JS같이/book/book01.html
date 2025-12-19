@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01.book01</title>
+<!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    const [books, setBooks] = React.useState([
+      {id: 1, title: "자바의 정석", publish: "에이콘", count: 0},
+      {id: 2, title: "파이썬의 정석", publish: "길벗", count: 0},
+      {id: 3, title: "리엑트의 정석", publish: "한밫미디어", count: 0},
+      {id: 4, title: "오라클의 정석", publish: "해커스", count: 0},
+    ]);
+    const App = () => {
+      // 변수 선언 및 사용자 함수를 선언
+      return (
+        <>
+        도서목록{1}
+        </>
+      )
+      
+    };// end of App
+    ReactDOM.createRoot(root).render(<App/>);
+  </script>
+</body>
+</html>
