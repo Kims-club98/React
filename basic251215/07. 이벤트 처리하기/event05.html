@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>02. React이벤트 처리하기 1</title>
+  <title>02. React이벤트 처리하기 3(정답)</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -19,7 +19,15 @@
   <script type="text/babel">
       const root = document.querySelector("#root")
       const App = () => {
-      const [keyWord, setKeyword] = React.useState('') // 배열 변수 선언 (내역은 X)
+      const [keyword, setKeyword] = React.useState(() => {
+        console.log("initialize")
+        return window.localStorage.getItem("keyword")
+      })
+      React.useEffect(() => {
+        console.log("effect")
+        // keyword에 대응되는 값을 로컬 스토리지에 저장함(브라우저)
+        window.localStorage.setItem("keyword", keyword)
+      },[keyword])
       const [result, setResult] = React.useState('') // 배열 변수 선언 (내역은 X)
       const [typing, setTyping] = React.useState(false)
       const handleClick = () => {
@@ -35,11 +43,11 @@
 
         return (
           <>
-          <input type="text" onChange={handleChange}/>
+          <input type="text" onChange={handleChange} value={keyword}/>
           {/*▼ type 을 button으로 하여 submit 이슈 해결, handleClick 함수 사용 시 상단에 변수 있어야 함. ▼ */}
           <button type="button" onClick={handleClick}>검색</button>
           <p>
-            {typing ? `Looking for ${keyWord}...`: result}  
+            {typing ? `Looking for ${keyword}...`: result}  
           </p>
           </>
         )
@@ -48,7 +56,13 @@
   </script>
 </body>
 </html>
+
 <!-- 
-  input 칸에 내역을 넣을 때마다 typing에서 내역이 출력되고 console창에 계속 handleChange가 됨.
-  검색을 클릭(button)하면 setResult(검색 키워드는...) 값이 출력됨(출력값 변경)
+  === 정리: 대신 쓰기 가능(결과 동일) ===
+    const [keyWord, setKeyword] = React.useState('')
+  ==>
+    const keywordState = React.useState('')
+    const keyword = keywordState[0] // 관리할 상태값임
+    const setKeyword = keywordState[1] // 뒤에것을 바꿔주는 역할 수행
+  
 -->
