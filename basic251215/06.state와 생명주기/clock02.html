@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>state와 생명주기</title>
+  <!-- ▼ React 사용을 위한 코드 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root"); // id root 와 변수 root 와 연결
+    // 컴포넌트는 함수이다! => 반드시 함수의 첫 글자는 대문자로 쓴다!
+    // 개발자가 만든 컴포넌트가 처음으로 화면에 나가는 순간 == 마운트(Mount) 되었을 때
+    // 언마운트(Unmount): 컴포넌트가 화면(==DOM)에서 사라지는 순간임.
+    const Clock = () => {// 좌 중괄호 우중괄호 {} 의 경우 retrun 생략 不可 (함수명 첫 글자 => 대문자)
+      //1) state 선언하기
+      const [date, setDate] = React.useState(new Date());
+      // 2) 생명주기 처리
+      React.useEffect(() => {
+        const timer = setInterval(() => {
+          setDate(new Date())
+        },1000) // 두 번쨰 파라미터 자리에 mili sec자리의 시간
+        // conpanenWillUnmount 역할(정리함수)
+      }, []); // 빈 배열은 의존성 배열임(최초 1회만 실행)
+
+      return(
+        <React.Fragment> {/*<>로 생략 가능*/}
+          {/* ▼ 현재 시간을 출력할 부분*/}
+          <h2>현재 시간</h2>
+          {/* ▼ React 적용 {} 에 기입*/}
+          <h3>{date.toLocaleTimeString()}</h3>  
+        </React.Fragment>
+        )// end of Clock_return
+    }// end of Clock
+    ReactDOM.createRoot(root).render(<Clock/>); // root element로 랜더링
+  </script>
+</body>
+</html>
