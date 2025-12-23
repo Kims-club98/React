@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeptList</title>
+    <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const App = () => {
+      const [isOk, setIsOk] = React.useState(false) // isOK -> 초기값, setIsOk -> 바뀔 값
+      const [depts, setDepts] = React.useState([])
+      console.log("First 실행 완료")
+      React.useEffect(()=>{
+        console.log("Second - Effect 실행 완료")
+
+        fetch("https://localhost:8000/detp")
+        .then((response) => response.json())
+        .then((result) => {
+          setDepts(result)
+        })
+        .catch((error) => console.error(error));
+      },[isOk])// ★ 빈 배열이라면... => 한 번 호출이 된다.
+      const deptIsDB = () => {
+        console.log("deptIsDB 실행 완료")
+        console.count("detpIsDB 실행 횟수")
+        // 아래 코드의 有無를 비교해보시오.
+        setIsOk((prev) => !prev) // 이전 값을 뒤집는다.
+      }
+      // ▼ 실제 출력되는 부분 ▼
+      return(
+        <>
+          <h2>부서목록</h2>
+          {/*▼ button에 타입을 지정하지 않으면 submit됨, 하지만 submit 이슈로 type button으로 지정해준다. ▼*/}
+          <button type="button" onClick={deptIsDB}>조회</button>
+          <ul>
+            {dept.map((dept)=> (
+              
+            ))}  
+          </ul>
+        </>
+      )
+    }// end of App
+    ReactDOM.createRoot(root).render(<App/>)
+  </script>
+
+  
+</body>
+</html>
+<!-- 
+순서
+button - deptIsDB - 
+-->
