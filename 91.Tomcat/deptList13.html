@@ -32,6 +32,7 @@
         console.log('deptListDB')
         const dname = document.querySelector("#dname").value 
         console.log('사용자가 입력한 부서이름 : '+dname)
+        //쿼리스트링을 활용함
         fetch("http://localhost:8000/dept?dname="+dname)
           .then((response) => response.json())
           .then((result) => {
@@ -40,47 +41,76 @@
             setDepts(result)
           })
           .catch((error) => console.error(error));
-      }
-/********************각 버튼에 대한  명령코드 작성*****************************/
-      // deptInsertDB(부서등록) - 사용자로부터 부서번호, 부서명, 지역을 입력 받는다!
+      }//end of 조회
+
+      //부서 등록 - 사용자로 부터 부서번호, 부서명, 지역을 입력 받음.
       const deptInsertDB = () => {
-        console.log("부서등록 실행 완료") // 명령 테스트
-        const u_deptno = document.querySelector("#udeptno").value // 입력받은 부서번호 선언
-        const u_dname = document.querySelector("#udname").value // 입력받은 부서명 선언
-        const u_loc = document.querySelector("#uloc").value // 입력받은 지역명 선언
-
+        console.log('deptInsertDB')
+        //const u_deptno = document.querySelector("#udeptno").value
+        //const u_dname = document.querySelector("#udname").value
+        //const u_loc = document.querySelector("#uloc").value
         const dept = {
-          deptno: u_deptno,
-          dname: u_dname,
-          loc: u_loc
-        } // 위 json 구조형식을 dept로 선언
-
-      // insert here -> fetch -> URL
-        fetch("http://localhost:8000/dept",{
+          deptno: 55,
+          dname: "품질관리팀",
+          loc: "서울"
+        }
+        //insert here -> fetch -> URL
+        fetch('http://localhost:8000/dept',{
           method: 'post',
           header: {
-            'Content-Type' : 'application/json'
+            'Content-Type': "application/json"
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(dept)
         })
         .then((res) => res.json())
-        .then(data => {
-          console.log(data)
+        .then(result => {
+          console.log(result)
+          if(result == 1){
+            alert("부서 등록 성공")
+          }else{
+            alert("부서 등록 실패")
+          }
         })
-        .catch((error) => console.error("부서등록실패",error))
-      }// end of 부서입력
+        .catch((error) => console.error("부서등록 실패",error))
+      }//end of 등록
+      //부서 수정
+      //부서 등록은 새로운 레코드가 추가되는 것이고
+      //부서 수정은 기존에 있는 레코드 중에서 일부 컬럼을 변경하는 것이다.
+      //수정시에 없는 부서번호를 선택한다면 result값은 항상 0일 것이다.
+      const deptUpdateDB = () => {
+        console.log('deptUpdateDB')
 
-      // deptUpdateDB(부서수정)
-      const deptUpdateDB =() => {
-        console.log("부서수정 실행 완료") // 명령 테스트
+        const dept = {
+          deptno: 52,
+          dname: "생산관리부",
+          loc: "인천"
+        }
+        //insert here -> fetch -> URL
+        fetch('http://localhost:8000/dept',{
+          method: 'put',//메서드 이름이 맞지 않으면 405번
+          header: {
+            'Content-Type': "application/json"
+          },
+          body: JSON.stringify(dept)
+        })
+        .then((res) => res.json())
+        .then(result => {
+          console.log(result)
+          if(result == 1){
+            alert("부서 수정 성공")
+            deptListDB() //서블릿 서버에 요청하기
+          }else{
+            alert("부서 수정 실패")
+          }
+        })
+        .catch((error) => console.error("부서수정 실패",error))
 
-      }// end of 부서수정
-      // deptDeleteDB(부서삭제)
+      }//end of 수정
+      //부서 삭제
       const deptDeleteDB = () => {
-        console.log("부서삭제 실행 완료") // 명령 테스트
+        console.log('deptDeleteDB')
 
-      }// end of 부서삭제
-
+      }//end of 삭제
       return (
         <>
           <h2>부서목록</h2>
@@ -88,7 +118,7 @@
           <button type="button" onClick={deptListDB}>조회</button>&nbsp;
           <button type="button" onClick={deptInsertDB}>입력</button>&nbsp;
           <button type="button" onClick={deptUpdateDB}>수정</button>&nbsp;
-          <button type="button" onClick={deptDeleteDB}>삭제</button>&nbsp;
+          <button type="button" onClick={deptDeleteDB}>삭제</button>
           <table className="table">
             <thead>
               <tr>
@@ -99,7 +129,7 @@
             </thead>
             <tbody>
             {depts.map((dept,index) => (
-              <tr key={dept.deptno}> {/*<tr key={index} 도 작동*/}
+              <tr key={dept.deptno}>
                 <td>{dept.deptno}</td>
                 <td>{dept.dname}</td>
                 <td>{dept.loc}</td>
