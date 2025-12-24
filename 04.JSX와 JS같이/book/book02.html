@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02.book02</title>
+    <!-- React 라이브러 -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <!-- ReactDOM 라이브러리 -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- 바벨 : JSX 사용 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    /* ▼ App 내부 배열[books, setBooks] 입력 ▼ */
+    const App = () => {
+      // 변수 선언 및 사용자 함수를 선언
+      // 하단의 도서 정보를 카카오 API로 부터 가져온다.
+      // OR 서블릿을 통해 ORACLE 서버에서 조회된 결과를 초기화 해야 한다.
+      const [books, setBooks] = React.useState([
+      {id: 1, title: "자바의 정석", publish: "에이콘", count: 0},
+      {id: 2, title: "파이썬의 정석", publish: "길벗", count: 0},
+      {id: 3, title: "리엑트의 정석", publish: "한밫미디어", count: 0},
+      {id: 4, title: "오라클의 정석", publish: "해커스", count: 0},
+    ]);
+      return (
+        <>
+        <h2>도서 목록</h2>
+        <ul>
+        {books && books.map((book,index)=> {
+          return (
+            <>
+            <li key={book.id}>
+              <h3>책 제목: {book.title}</h3>
+              <h4>출판사: {book.publish}</h4>
+              <h5>추천수: {book.count}</h5>
+            </li>
+            </>
+          );
+        })}; 
+        </ul>
+        </>
+      )
+      };// end of App
+      ReactDOM.createRoot(root).render(<App/>);
+    </script>
+  </body>
+</html>

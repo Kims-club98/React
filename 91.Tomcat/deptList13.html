@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">  
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const App = () => {
+      const [isOk, setIsOk] = React.useState(false)
+      //변수 처럼 취급 - 다른점 : state(상태)가 변하면 화면을 다시 그린다.
+      //데이터 종류 : string, number, [], {}, 3.14, false
+      const [depts, setDepts] = React.useState([])
+      console.log('first')
+      React.useEffect(()=>{
+        console.log('effect')
+        //톰캣 서버에 요청한 결과 받아오기
+        //deptListDB()
+
+      },[isOk])//빈 배열이면 최초 한 번 호출이 됨.
+      const deptListDB = () => {
+        console.log('deptListDB')
+        const dname = document.querySelector("#dname").value 
+        console.log('사용자가 입력한 부서이름 : '+dname)
+        fetch("http://localhost:8000/dept?dname="+dname)
+          .then((response) => response.json())
+          .then((result) => {
+            //크롬 브라우저 -> 개발자 센터 확인 가능
+            console.log(result) //Array(3)
+            setDepts(result)
+          })
+          .catch((error) => console.error(error));
+      }
+/********************각 버튼에 대한  명령코드 작성*****************************/
+      // deptInsertDB(부서등록) - 사용자로부터 부서번호, 부서명, 지역을 입력 받는다!
+      const deptInsertDB = () => {
+        console.log("부서등록 실행 완료") // 명령 테스트
+        const u_deptno = document.querySelector("#udeptno").value // 입력받은 부서번호 선언
+        const u_dname = document.querySelector("#udname").value // 입력받은 부서명 선언
+        const u_loc = document.querySelector("#uloc").value // 입력받은 지역명 선언
+
+        const dept = {
+          deptno: u_deptno,
+          dname: u_dname,
+          loc: u_loc
+        } // 위 json 구조형식을 dept로 선언
+
+      // insert here -> fetch -> URL
+        fetch("http://localhost:8000/dept",{
+          method: 'post',
+          header: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then((res) => res.json())
+        .then(data => {
+          console.log(data)
+        })
+        .catch((error) => console.error("부서등록실패",error))
+      }// end of 부서입력
+
+      // deptUpdateDB(부서수정)
+      const deptUpdateDB =() => {
+        console.log("부서수정 실행 완료") // 명령 테스트
+
+      }// end of 부서수정
+      // deptDeleteDB(부서삭제)
+      const deptDeleteDB = () => {
+        console.log("부서삭제 실행 완료") // 명령 테스트
+
+      }// end of 부서삭제
+
+      return (
+        <>
+          <h2>부서목록</h2>
+          <input type="text" id="dname" name="dname" />
+          <button type="button" onClick={deptListDB}>조회</button>&nbsp;
+          <button type="button" onClick={deptInsertDB}>입력</button>&nbsp;
+          <button type="button" onClick={deptUpdateDB}>수정</button>&nbsp;
+          <button type="button" onClick={deptDeleteDB}>삭제</button>&nbsp;
+          <table className="table">
+            <thead>
+              <tr>
+                <th>부서번호</th>
+                <th>부서명</th>
+                <th>지역</th>
+              </tr>
+            </thead>
+            <tbody>
+            {depts.map((dept,index) => (
+              <tr key={dept.deptno}> {/*<tr key={index} 도 작동*/}
+                <td>{dept.deptno}</td>
+                <td>{dept.dname}</td>
+                <td>{dept.loc}</td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+        </>
+      )
+    }//end of App
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>

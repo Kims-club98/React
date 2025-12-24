@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News01</title>
+  <!-- ▼▼▼ 리엑스 사용을 위한 src ▼▼▼-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"> // end of React</script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+<body>
+  <div id="root"></div>
+  <script type="video/avi"></script> <!-- video가 메인, avi가 서브타입-->
+  <script type="text/babel"> // text는 메인타입, babel은 서브타입이다.
+    const root = document.querySelector("#root");
+    const App = () => {
+      return (
+        <React.Fragment>
+          <h2>해커뉴스 목록</h2>
+          <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </React.Fragment>
+      );
+    };
+
+    ReactDOM.createRoot(root).render(<App/>); //root 값을 render() 함수에 렌더링(App을 랜더링 해 root에)
+  </script>
+</body>
+</html>

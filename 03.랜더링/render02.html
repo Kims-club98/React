@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/javascript"> // 자바스트립트 사용 (babel == 바벨 사용)
+  /*
+    === 정리 ===
+    1. div와 button 모두 점멸 반응 == 버튼이 계속 새로 만들어지고 있음.
+    2. 개선방법 -> 버튼은 새로 만들어지지 않고 버튼의 label만 바뀐다!
+        check 방법) 버튼이 있는 화면에 마우스 빈 곳을 클릭 후 tab키 버튼을 부르면 굵은 테두리가 들어갔다가 풀리고 있다.
+                    즉 버튼 안에 숫자 라벨만 바뀌는 것이 아닌 버튼도 새로 만들어지고 있음...
+  */
+    const root = document.querySelector("#root")
+    function tick() {
+      //0부터 9사이의 숫자 랜덤 채번하기-실수형 나오면 버림 처리
+      const number = Math.floor(Math.random()*(10-1)+1)  
+      const element = `
+        <button>${number}</button>
+      `// ` 키: 변수와 html을 사용하기 위함.
+      root.innerHTML = element
+    }//end of tick
+
+    setInterval(tick, 1000);//1초마다 호출(div 태그, button이 새로 생기는 중...)
+  </script>
+</body>
+</html>

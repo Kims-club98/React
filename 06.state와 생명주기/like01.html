@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const App = () => {
+      // ▼ App에 들어갈 변수, 함수를 선언해두기
+      const title = "자바의 정식";
+      const [책제목, 책제목설정] = React.useState("리엑트의 정석")
+      let [좋아요, 좋아요설정] = React.useState(0);
+      const increment = () => {
+        좋아요설정(좋아요+1)
+      }
+      const decrement = () => {
+        const count = 좋아요 - 1
+        console.log(count)
+        좋아요 = count < 0 ? 0 : count
+        좋아요설정(좋아요)
+      }
+      // ▼ retrun 하단에 실제 화면에 적용할 변수,함수 기입
+      return(
+      
+        <>
+          {책제목} <br />
+          <span onClick={increment}>👍🏻</span> 
+          {좋아요}
+          <span onClick={decrement}>👎🏻</span>
+        </>
+      )
+    }
+    ReactDOM.createRoot(root).render(<App />) // App 함수를 실제 root 에 랜더링
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!-- 
+date: 2025.12.15 11:47
+title: list 만들기
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- React and ReactDOM 을 적용하기 위한 Script 문 3개↓-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"> // end of React</script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <style>
+    /* 클래스 이름 적용 시 . 을 사용(name으로 적용 시 는 #을 사용) */
+    .title{
+      color:red;
+      font-size: 40px;
+    }
+  </style>
+  <script type="text/babel">
+    const root = document.querySelector("#root"); // html id root 를 가져와 root 변수에 담음
+    const msg = "Hello, React!!!"; // msg 변수에 문자열 할당
+    const element = ( // JSX된 React 엘리먼트 변수를 element에 담기 시작함.
+      // (JS 영역) <React.Fragment> : 문법적으로 생략은 불가하나, 축약형 <> </> 사용 가능
+        <React.Fragment> 
+        {/*JSX 문법 주석이다.*/}
+        {/*element 내부에 여러 엘리먼트를 사용 시 반드시 전체를 감싸는 태그가 필요!*/}
+        {/*div 태그로 묶어도 합법 -> 그러나 불필요한 태그가 추가되는 것은 추천되지 않음*/}
+        <h2>목록 보기</h2>
+        {
+          ['🍇','🍌','🍓','🍎','🥭'].map((currentValue, x, array) => (
+            <h1 key={x}>{currentValue}</h1>
+          ))
+        }
+      </React.Fragment>
+    ) // JSX문법: html과 JS 혼합 문법
+
+    ReactDOM.createRoot(root).render(element); // root 요소에 element 렌더링(중요!)
+    </script>
+</body>
+</html>
+<!-- 
+  +++++++ 설명 +++++++
+  목표1)
+    1. React 애서 배열 데이터를 JSX로 랜더링 시 key 솟성이 필요한 이유에 대해서 말할 수 있다!
+      - key 속성을 생략 시 에러 발생
+      - key의 역항을 가상 DOM 관점에서 이야기 할 경우 React가 Key값을 활용하여 어떤 요소가 변경되었는지 알고리즘을 제공함.
+
+      - Key를 통해 이전과 이후에 변경사항을 판단
+      - IF 누락 시) 렌더링의 오류는 없지만, 성능 저하 및 UI버그가 발생할 수 있음.
+-->

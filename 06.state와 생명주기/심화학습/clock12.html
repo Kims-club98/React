@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>state와생명주기</title>
+  <!-- React 라이브러 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ReactDOM 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- 바벨 : JSX 사용 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root")
+    const Clock = () => {
+      console.log('11')
+      //1) state선언하기 - 현재 시간(화면에 출력할 데이터)
+      const [date, setDate] = React.useState(new Date())
+      //2) state선언하기 - 타이머 실행 여부(시작버튼/정지버튼 스위치)
+      const [isRunning, setIsRunning] = React.useState(true)
+      React.useEffect(() => {
+        console.log('effect')
+        //실행 중이 아니면 타이머 만들지 않음
+        if(!isRunning){
+          console.log("[Clock] isRunning=false -> 타이머 생성 안함.")
+          return //이 다음 코드는 실행 기회를 갖지 못한다. -> useEffect탈출
+        } 
+        console.log("[Clock] 타이머 시작(setInterval 생성)")
+        //1초마다 date갱신
+        const timer = setInterval(() => {
+          //state 업데이트 한다. -> React가 다시 렌더링 된다. -> 시간이 갱신된다는 것이다.
+          setDate(new Date())
+        },1000) //두번째파라미터 자리에 mili sec단위 시간
+        // cleanup: 언마운트 되거나 isRunning이 바뀌면 실행됨
+        return () => {
+          console.log("[Clock] cleanup 실행 -> 타이머 제거(clearInterval)")
+          clearInterval(timer)
+        }
+      },[isRunning]) //isRunning이 바뀔 때 마다 useEffect재평가
+      //state는 이전 상태값을 기억하고 있다.
+      const toggleRunning = () => {
+        setIsRunning((prev) => !prev)
+      }
+      return (
+        <>
+          <h2>현재 시간 : {date.toLocaleTimeString()}</h2>
+          {/* isRunning 상태에 따라 문구도 달라짐 */}
+          <h3>상태 : {isRunning ? "실행 중": "정지"}</h3>
+          {/* 버튼을 누르면 state가 바뀌고 화면이 자동 갱신이 되는가? 관찰 */}
+          <button onClick={toggleRunning}>
+            {isRunning ? "정지(stop)":"시작(Start)"}
+          </button>
+        </>
+      )
+    }//end of Clock
+    //Clock을 보이기/숨기기 로 제어 -> boolean -> useState
+    const App = () => {
+      //부모 state : Clock을 화면에 표시할지 여부
+      const [isShowClock, setIsShowClock] = React.useState(true)
+      const toggleClock = () => {
+        setIsShowClock((prev) => !prev)
+      }//end of toggleClock
+      return (
+        <>
+          <h1>Unmount + Cleanup 실습</h1>
+          {/* Clock 보이기/숨기기 버튼 */}
+          <button onClick={toggleClock}>
+            {isShowClock ? "Clock숨기기(언마운트)":"Clock보이기(마운트)"}
+          </button>    
+          {/* 조건부 렌더링 : true일 때만 Clock을 렌더링하기 */}
+          {isShowClock ? <Clock /> : <p>Clock이 숨겨졌습니다.'</p>} {/*isShowClock 가 True일 때 <Clock/> 출력 & False일 때 "Clock이 숨겨졌습니다. 출력"*/}
+        </>
+      )
+    }//end of App(Parent)
+
+    ReactDOM.createRoot(root).render(<App />)
+  </script>
+</body>
+</html>

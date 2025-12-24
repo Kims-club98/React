@@ -1,0 +1,40 @@
+<!-- 
+ date: 2023.12.15 11:33
+ title: JSX와 Badel
+ description: JSX 문법에서 class 속성 적용하기 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello React</title>
+  <!-- 
+    CDN - 로컬(pc)캐시사용 -> 속도가 느림
+
+  -->
+    <!-- ▼ react.devopment 리액트 훅-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ▼ 돔 관련 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- ▼ 파일 이름에 min들어간 파일은 들여쓰기나 줄바꿈이 배제됨 -> 파일 크기가 적다!! -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <style>
+    /* 클래스 이름 적용 시 . 을 사용(name으로 적용 시 는 #을 사용) */
+    .title{
+      color:red;
+      font-size: 40px;
+    }
+  </style>
+  <script type="text/babel">
+    const root = document.querySelector("#root"); 
+    const msg = "Hello, React!"; 
+    const 클래스이름 = "title"; // 선언 수행 후 적용하기!
+    const element = <h2 className={클래스이름}>{msg}</h2>; //JSX 문법 -> html과 JS 섞어쓰기
+    ReactDOM.createRoot(root).render(element); 
+    </script>
+</body>
+</html>

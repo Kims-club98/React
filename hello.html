@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- React and ReactDOM 을 적용하기 위한 Script 문 3개↓-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"> // end of React</script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <!-- ↓↓ 최신 JS 문법을 오래된 브라우저에서도 수행할 수 있도록 변환해주는 변환기 역할, 트랜스 파일러(babel, typescript) ↓↓  -->
+  <script type="text/babel">
+    const root = document.querySelector("#root"); // id root 요소 선택
+    const msg = "Hello, React!"; // 변수 msg에 문자열 Hello, React! 할당
+    const element = <h2>{msg}</h2> // 변수 선언했던 msg를 element에 h2 태그로 감싸서 할당(JSX 문법 사용->< HTML과 JS 혼합 문법 >)
+    ReactDOM.createRoot(root).render(element); // ReactDOM의 createRoot 메서드로 root 요소에 element 렌더링
+    // 정리: html id가 rooot에 element(msg 내용이 들어간)를 렌더링 하는 의미
+  </script>
+</body>
+</html>

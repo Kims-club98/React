@@ -1,0 +1,38 @@
+<!-- 
+ date: 251217 10:51
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello React</title>
+
+  <!-- ▼ react.devopment 리액트 훅-->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ▼ 돔 관련 라이브러리 -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- ▼ 파일 이름에 min들어간 파일은 들여쓰기나 줄바꿈이 배제됨 -> 파일 크기가 적다!! -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <style>
+    .title{
+      color:red;
+      font-size: 40px;
+    }
+  </style>
+  <script type="text/babel">
+    const root = document.querySelector("#root"); 
+    const msg = "Hello, React!"; 
+    const 클래스이름 = "title"; 
+    const props = {className: 클래스이름, children: msg};
+    //스프레드연산자
+    //하위태그(자손)태그가 존재하지 않으면, 닫힌 태그를 한번에 사용함.
+    const 사용자정의태그 = <h2 {...props}>{msg}</h2>; // props 객체의 속성들을 해체하여 h2 태그에 적용
+    ReactDOM.createRoot(root).render(사용자정의태그); 
+    </script>
+</body>
+</html>
