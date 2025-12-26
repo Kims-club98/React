@@ -27,25 +27,39 @@
         {id:2, name:'포도', count:0},
         {id:3, name:'키위', count:0}
       ])// end of [item, setItem] => 이를 바탕으로 for문 사용가능!
+      const onDelete = (id) => {
+        console.log("CartItem에서 받아온 id값"+id)
+        setItems((prev) => prev.filter((item) => item.id != id));
+      }
       return (
         <>
           <h2>여기는 Cart컴포넌트</h2>
           <ul>
           {items.map((item)=>( // return 생략 (), return 작성 {}
-            <CartItem key={item.id} item={item}/>   
+            <CartItem key={item.id} item={item} onDelete={onDelete}/>   
           ))}
           </ul>
+
+            <footer className="footer">
+            <input type="text" class="footer_input" />{/*JSX는 열림 닫힘 </>태그가 엄격해야 함*/}
+            <button className="footer_button">
+              <i className="fas fa-plus"></i> {/*Class 아님, Classname이 맞음*/}
+            </button>
+        </footer>
+
         </>
       )
     }
-    const CartItem = ({item}) => {
+    const CartItem = ({item, onDelete}) => {
       return (
         <>
           <li>
-            <span className="item_name">{item.name}</span>
-            <button className="item_delete">
-              <i className="fas fa-trash-alt"></i>
-            </button>
+            <div className="item">
+              <span className="item_name">{item.name}</span>
+              <button className="item_delete" onClick={()=> onDelete(item.id)}>
+                <i className="fas fa-trash-alt"></i>
+              </button>
+            </div>
           </li>
         </>
       )
