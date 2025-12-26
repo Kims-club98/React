@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    border: 1px solid red /*각 태그의박스의 범위 확인용도, 최종본은 제거하기*/
 }
 
 ul {
