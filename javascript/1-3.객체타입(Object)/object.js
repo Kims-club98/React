@@ -1,3 +1,11 @@
+// 원시타입은 값이 복사되어 전달됨
+let a = 1
+let b = a // 이 상황은 a값이 b에 복사되어 b = 1이 됨.
+b = 2 
+
+console.log(a) // 1
+console.log(b) // 2
+
 let name = 'apple'
 let color = 'red'
 let display = '🍎'
@@ -23,5 +31,10 @@ let orange = {
   display : '🍊'
 }
 
+// 객체타입은 참조값(메모리주소, 래퍼런스)가 복사되어 전달됨
+// 복사본은 변경하면 원본도 변경된다.
 orange = apple
 console.log(orange)
+orange.name = "Orange"
+console.log(apple)
+
