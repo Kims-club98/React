@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ▼ React 라이블러리 -> useState, useEffect 상태관리... ▼ -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ▼ ReactDOM 라이브러리 -> render, creatRoot ▼ -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- ▼ JSX 바벨 사용 ▼ -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>컴포넌트 1-2</title>
+</head>
+<body>
+  <script type="text/babel">
+  const App =() => {
+    const [result, setResult] = React.useState('')
+    const [typing, setTyping] = React.useState(fasle)
+    const handleClick = () => {
+      console.log("handleClick")
+    }// end of handleClick
+    React.useEffect(() => {
+      console.log("effect")
+    },[])
+    return (
+      <>
+      <input type="text" onChange={handleChange} />
+      <button type="button" onClick={handleClick}>search</button>
+      </>
+    )
+  }// end of App
+  ReactDOM.createRoot(root).render(<App/>)
+  </script>
+
+</body>
+</html>

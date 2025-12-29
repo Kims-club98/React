@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+  == 정리 1 ==
+  1. 키보드를 입력할 때 마다 입력된 문자열을 ketword useState훅(Hook)에서 Local Storage에 저장되어 있는
+  keyword값을 읽어 변화하도록 처리해보기
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컴포넌트 상태1-1</title>
+  <!-- ▼ React 라이블러리 -> useState, useEffect 상태관리... ▼ -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <!-- ▼ ReactDOM 라이브러리 -> render, creatRoot ▼ -->
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <!-- ▼ JSX 바벨 사용 ▼ -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+
+    const App = () => {
+      const [keyword, setKeyword] = React.useState("");
+      const [result, setResult] = React.useState("");
+      const [typing, setTyping] = React.useState(false);
+
+      const handleClick = () => {
+        console.log("handleClick 발동");
+      };
+
+      const handleChange = (e) => {
+        setKeyword(e.target.value);
+      };
+
+      React.useEffect(() => {
+        console.log("effect 발동");
+      }, []);
+
+      return (
+        <>
+          <input type="text" onChange={handleChange} />
+          <button type="button" onClick={handleClick}>search</button>
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(root).render(<App />);
+  </script>
+</body>
+
+    <!--
+      == 정리 2 ==
+      1. 컴포넌트는 함수임
+      2. 함수 안에 함수 선언 가능
+      3. 함수 안에 변수 선언 가능
+      4. 형태1: () => {return 작성 必}
+      5. 형태2: () => (return 생략)
+    -->
+
+  </script>
+</body>
+</html>
